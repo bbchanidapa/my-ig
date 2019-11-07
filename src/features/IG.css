@@ -1,0 +1,29 @@
+.profile-container {
+    border: 2px solid red;
+    width: 50%;
+}
+
+.profile-container .profile-image-container {
+    text-align: center;
+}
+
+.profile-container .profile-image {
+    width: 40%;
+    margin: 0 auto;
+}
+
+.profile-container .profile-name {
+    color: brown
+}
+
+.profile-container .profile-description {
+    color: blueviolet
+}
+
+.image-container {
+
+}
+
+.image-container .image-grid {
+    float: left;
+}
