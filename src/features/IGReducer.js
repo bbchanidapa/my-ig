@@ -2,6 +2,7 @@ const initState = {
     cat: {
         listImage: [],
         isFetching: true,
+        error: ''
     }
 }
 
@@ -21,7 +22,10 @@ export default (state = initState, action) => {
                 ...state,
                 cat: {
                     ...state.cat,
-                    listImage: [...state.cat.listImage, action.data],
+                    listImage: [
+                        ...state.cat.listImage,
+                        action.data
+                    ],
                     isFetching: false,
                     data: action.data
                 }
