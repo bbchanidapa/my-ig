@@ -21,6 +21,7 @@ const componentImg = (url, index) => {
 
 const IGContainer = (props) => {
     const { listImage, isFetching } = useStore().getState().cat
+    
     useEffect(() => {
         props.getImageCat()
     }, [])
