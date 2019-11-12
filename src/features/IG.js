@@ -20,7 +20,7 @@ const componentImg = (url, index) => {
 }
 
 const IGContainer = (props) => {
-
+    const { listImage, isFetching } = useStore().getState().cat
     useEffect(() => {
         props.getImageCat()
     }, [])
@@ -40,14 +40,13 @@ const IGContainer = (props) => {
                     </button>
             </div>
             <div className="image-container">
-                {!props.isFetching && props.imgData.map((imgObject, index) => componentImg(imgObject.file, index))}
+                {!isFetching && listImage.map((imgObject, index) => componentImg(imgObject.file, index))}
             </div>
         </div>
     )
 }
 
 const mapStateToProps = (state) => {
-    console.log('state', state)
     return {
         imgData: state.cat.listImage,
         isFetching: state.cat.isFetching,
