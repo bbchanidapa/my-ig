@@ -1,6 +1,7 @@
 .profile-container {
     border: 2px solid red;
     width: 50%;
+    margin: 0 auto;
 }
 
 .profile-container .profile-image-container {
@@ -21,9 +22,12 @@
 }
 
 .image-container {
-
+    display: grid;
+    grid-template-columns: auto auto auto;
+    margin: 0 auto;
+    width: 50%;
 }
 
 .image-container .image-grid {
-    float: left;
+
 }

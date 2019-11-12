@@ -1,35 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { connect, useStore } from 'react-redux'
 import axios from 'axios'
+import { getImageCat } from './IGActions'
 import './IG.css'
-
-const data = [
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-    {"file":"https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg"},
-]
 
 const profileData = {
     avatar: "https://purr.objects-us-east-1.dream.io/i/mjzu8336.jpg",
-    name:   "Rattham Nirattisaikul",
-    description:    "Hello my name is ABC"  
+    name: "Rattham Nirattisaikul",
+    description: "Hello my name is ABC"
 }
 
-const componentImg = (url, index)=> {
+const componentImg = (url, index) => {
     return (
-        <div style={{ display: "inline"}}>
-            <img key={index} src={url} alt="Cat" width="256" />
-            { ((index + 1) % 3) === 0 && <br/> }
+        <div key={index}>
+            <img src={url} alt="Cat" width="256" />
+            {((index + 1) % 3) === 0 && <br />}
         </div>
     )
 }
 
-const IG = () => {
+const IGContainer = (props) => {
+
+    useEffect(() => {
+        props.getImageCat()
+    }, [])
+
     return (
         <div>
             <div className="profile-container">
@@ -38,12 +33,27 @@ const IG = () => {
                 </div>
                 <h1 className="profile-name">{profileData.name}</h1>
                 <p className="profile-description">{profileData.description}</p>
+                <button
+                    style={{ width: '30%' }}
+                    onClick={() => props.getImageCat()}>
+                    Click here!
+                    </button>
             </div>
             <div className="image-container">
-                { data.map( (imgObject, index) => componentImg(imgObject.file, index) ) }
+                {!props.isFetching && props.imgData.map((imgObject, index) => componentImg(imgObject.file, index))}
             </div>
         </div>
     )
 }
 
-export default IG
+const mapStateToProps = (state) => {
+    console.log('state', state)
+    return {
+        imgData: state.cat.listImage,
+        isFetching: state.cat.isFetching,
+    }
+}
+
+export default connect(mapStateToProps, {
+    getImageCat
+})(IGContainer)
